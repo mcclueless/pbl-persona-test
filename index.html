@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <meta name="theme-color" content="#011b3c" />
+  <title>PBL Persona Test · Maastricht University</title>
+  <meta name="description" content="Discover your learning style and your PBL persona at Maastricht University. 5 quick questions, no right or wrong answers." />
+  <link rel="icon" href="assets/um-logo-blue.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ============ START ============ -->
+    <section class="screen" id="screen-start">
+      <div class="stones"><span></span><span></span><span></span></div>
+      <div class="topbar">
+        <div class="brand"><img src="assets/um-logo-blue.svg" alt="Maastricht University" /></div>
+        <div class="lang-toggle">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="nl">NL</button>
+        </div>
+      </div>
+      <div class="start-body">
+        <span class="eyebrow" id="start-eyebrow">PBL Persona Test</span>
+        <h1 class="hero-title"><span id="hero-l1">Your learning.</span><em id="hero-l2">Your way.</em></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <ul class="feature-list" id="feature-list"></ul>
+        <div class="start-foot">
+          <button class="btn-primary" id="start-btn">
+            <span id="start-btn-label">Start the test</span>
+            <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <p class="start-note" id="start-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section class="screen" id="screen-quiz">
+      <div class="stones"><span></span><span></span></div>
+      <div class="topbar">
+        <div class="brand"><img src="assets/um-logo-white.svg" alt="Maastricht University" /></div>
+        <div class="lang-toggle on-dark">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="nl">NL</button>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-segs" id="progress-segs"></div>
+        <div class="progress-meta">
+          <span class="count" id="q-count"></span>
+          <button class="back-btn" id="q-back" hidden>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <span>Back</span>
+          </button>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <span class="q-pillar" id="q-pillar"></span>
+        <h2 class="q-text" id="q-text"></h2>
+        <div class="answers" id="answers"></div>
+      </div>
+    </section>
+
+    <!-- ============ RESULT ============ -->
+    <section class="screen" id="screen-result">
+      <div class="stones"><span></span><span></span><span></span></div>
+      <div class="topbar">
+        <div class="brand"><img src="assets/um-logo-white.svg" alt="Maastricht University" /></div>
+        <div class="lang-toggle on-dark">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="nl">NL</button>
+        </div>
+      </div>
+      <div class="result-body">
+        <div class="result-head">
+          <span class="kicker" id="result-kicker"></span>
+          <h1><span id="result-title1">Here is your</span> <span class="accent" id="result-title2">PBL persona</span></h1>
+        </div>
+        <div class="stones-grid" id="stones-grid"></div>
+        <p class="tap-hint" id="tap-hint"></p>
+
+        <div class="detail" id="detail"></div>
+
+        <div class="cta">
+          <h3 id="cta-title"></h3>
+          <p id="cta-text"></p>
+          <button class="btn-download" id="cta-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span id="cta-btn-label"></span>
+          </button>
+        </div>
+
+        <div class="result-foot">
+          <button class="btn-restart" id="restart-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span id="restart-label"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ MODAL: lead capture (Dynamics-ready) ============ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <span class="grab"></span>
+      <form id="modal-form" novalidate>
+        <h3 id="modal-title"></h3>
+        <p class="sub" id="modal-sub"></p>
+        <div class="field">
+          <label id="lbl-name" for="in-name"></label>
+          <input type="text" id="in-name" name="firstName" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label id="lbl-email" for="in-email"></label>
+          <input type="email" id="in-email" name="email" autocomplete="email" required />
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="in-consent" />
+          <span id="consent-text"></span>
+        </label>
+        <button class="btn-primary" type="submit"><span id="send-label"></span></button>
+      </form>
+      <div class="modal-success" id="modal-success">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 id="success-title"></h3>
+        <p id="success-text"></p>
+        <button class="btn-restart" id="success-close" style="margin-top:18px;color:var(--dove)"></button>
+      </div>
+      <button class="btn-restart modal-close" id="modal-close" aria-label="Close" style="position:absolute;top:18px;right:22px;color:var(--dove)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
