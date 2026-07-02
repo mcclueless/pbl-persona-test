@@ -210,6 +210,7 @@
     $('#cta-title').textContent = T.ctaTitle;
     $('#cta-text').textContent = T.ctaText;
     $('#cta-btn-label').textContent = T.ctaBtn;
+    $('#cta-btn').href = T.ctaUrl;
     $('#restart-label').textContent = T.restart;
 
     const grid = $('#stones-grid');
@@ -310,7 +311,9 @@
     $('#start-btn').addEventListener('click', startQuiz);
     $('#q-back').addEventListener('click', goBack);
     $('#restart-btn').addEventListener('click', () => { show('screen-start'); });
-    $('#cta-btn').addEventListener('click', openModal);
+    // CTA now links out to the UM PBL page (href set in renderResult); the
+    // lead-capture modal below stays in place, dormant, for when the
+    // infographic is ready.
     $('#modal-overlay').addEventListener('click', (e) => {
       if (e.target === $('#modal-overlay')) closeModal();
     });

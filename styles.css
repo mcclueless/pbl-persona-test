@@ -507,7 +507,7 @@ body {
   border: none; cursor: pointer;
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
   color: var(--midnight); background: var(--sky);
-  padding: 17px; border-radius: 999px;
+  padding: 17px; border-radius: 999px; text-decoration: none;
   display: flex; align-items: center; justify-content: center; gap: 10px;
   transition: transform 0.25s var(--ease), box-shadow 0.25s;
   box-shadow: 0 14px 36px -14px rgba(110,210,236,0.6);
