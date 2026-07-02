@@ -24,6 +24,16 @@
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
   const t  = () => I18N[state.lang];
 
+  /* ---------- Analytics (GTM dataLayer) ---------- */
+  // Push a namespaced event to the GTM dataLayer. Guarded so tracking can
+  // never break the user flow (e.g. if GTM is blocked or fails to load).
+  function track(event, props) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: event }, props || {}));
+    } catch (_) {}
+  }
+
   /* ---------- Screen switching ---------- */
   function show(screenId) {
     $$('.screen').forEach((s) => s.classList.toggle('is-active', s.id === screenId));
@@ -35,6 +45,7 @@
 
   /* ---------- Language ---------- */
   function setLang(lang) {
+    if (lang !== state.lang) track('pbl_language_switch', { language: lang });
     state.lang = lang;
     document.documentElement.lang = lang;
     $$('.lang-toggle button').forEach((b) =>
@@ -72,6 +83,7 @@
     state.step = 0;
     state.answers = [];
     state.scores = { collaborator: 0, analyst: 0, challenger: 0 };
+    track('pbl_start', { language: state.lang });
     show('screen-quiz');
     renderQuestion();
   }
@@ -138,6 +150,7 @@
         renderQuestion();
       } else {
         computeResult();
+        trackCompletion();
         show('screen-result');
         renderResult();
       }
@@ -166,6 +179,32 @@
     state.openPersona = null; // detail is revealed only on click
   }
 
+  // Fire analytics for a completed test: one pbl_answer per question (final
+  // answers only, since this runs once at completion) plus the pbl_result.
+  const LETTERS = ['A', 'B', 'C'];
+  function trackCompletion() {
+    QUESTIONS.forEach((Q, i) => {
+      const persona = state.answers[i];
+      track('pbl_answer', {
+        question_number: i + 1,
+        question_pillar: Q.pillar.en,
+        chosen_persona: persona,
+        option_letter: LETTERS[Q.options.findIndex((o) => o.p === persona)],
+        language: state.lang,
+      });
+    });
+    track('pbl_result', {
+      top_persona: state.topPersona,
+      score_collaborator: state.scores.collaborator,
+      score_analyst: state.scores.analyst,
+      score_challenger: state.scores.challenger,
+      pct_collaborator: state.pct.collaborator,
+      pct_analyst: state.pct.analyst,
+      pct_challenger: state.pct.challenger,
+      language: state.lang,
+    });
+  }
+
   function personaStone(key) {
     const P = PERSONAS[key];
     const meta = P[state.lang];
@@ -189,6 +228,7 @@
       // toggle: clicking the open persona collapses it back to empty
       const willOpen = state.openPersona !== key;
       state.openPersona = willOpen ? key : null;
+      if (willOpen) track('pbl_persona_open', { persona: key, language: state.lang });
       $$('.stone').forEach((s) =>
         s.classList.toggle('is-open', willOpen && s.dataset.persona === key)
       );
@@ -310,10 +350,17 @@
     );
     $('#start-btn').addEventListener('click', startQuiz);
     $('#q-back').addEventListener('click', goBack);
-    $('#restart-btn').addEventListener('click', () => { show('screen-start'); });
-    // CTA now links out to the UM PBL page (href set in renderResult); the
+    $('#restart-btn').addEventListener('click', () => {
+      track('pbl_restart', { language: state.lang });
+      show('screen-start');
+    });
+    // CTA links out to the UM PBL page (href set in renderResult). It opens in
+    // a new tab, so the page persists and the tracking push is reliable. The
     // lead-capture modal below stays in place, dormant, for when the
     // infographic is ready.
+    $('#cta-btn').addEventListener('click', () => {
+      track('pbl_cta_click', { top_persona: state.topPersona, language: state.lang });
+    });
     $('#modal-overlay').addEventListener('click', (e) => {
       if (e.target === $('#modal-overlay')) closeModal();
     });
