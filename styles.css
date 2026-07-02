@@ -401,6 +401,7 @@ body {
 .stone[data-persona="challenger"]{ background: linear-gradient(135deg, var(--challenger), var(--challenger-2)); }
 .stone:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -18px rgba(0,0,0,0.5); }
 .stone.is-top { box-shadow: 0 0 0 2.5px var(--sky), var(--shadow-card); }
+.stone.is-open { box-shadow: 0 0 0 3px var(--white), var(--shadow-card); }
 .stone .stone-ico {
   flex: 0 0 50px; height: 50px;
   display: grid; place-items: center;
@@ -428,7 +429,9 @@ body {
 .tap-hint { text-align: center; font-size: 12.5px; color: rgba(255,255,255,0.6); margin-top: 16px; }
 
 /* Detail panel */
-.detail {
+.detail { display: none; }
+.detail.is-shown {
+  display: block;
   margin-top: 18px;
   background: var(--white);
   color: var(--ink);

@@ -163,14 +163,16 @@
       if (state.scores[k] > state.scores[top]) top = k;
     });
     state.topPersona = top;
-    state.openPersona = top;
+    state.openPersona = null; // detail is revealed only on click
   }
 
   function personaStone(key) {
     const P = PERSONAS[key];
     const meta = P[state.lang];
     const stone = document.createElement('button');
-    stone.className = 'stone' + (key === state.topPersona ? ' is-top' : '');
+    stone.className = 'stone' +
+      (key === state.topPersona ? ' is-top' : '') +
+      (key === state.openPersona ? ' is-open' : '');
     stone.type = 'button';
     stone.dataset.persona = key;
     const crown = key === state.topPersona
@@ -184,10 +186,17 @@
       '</span>' +
       '<span class="stone-pct">' + state.pct[key] + '%<small>' + t().matchSuffix + '</small></span>';
     stone.addEventListener('click', () => {
-      state.openPersona = key;
+      // toggle: clicking the open persona collapses it back to empty
+      const willOpen = state.openPersona !== key;
+      state.openPersona = willOpen ? key : null;
+      $$('.stone').forEach((s) =>
+        s.classList.toggle('is-open', willOpen && s.dataset.persona === key)
+      );
       renderDetail();
-      const d = $('#detail');
-      if (d) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (willOpen) {
+        const d = $('#detail');
+        if (d) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
     return stone;
   }
@@ -213,7 +222,14 @@
   }
 
   function renderDetail() {
-    const key = state.openPersona || state.topPersona;
+    const el = $('#detail');
+    // no persona selected -> keep the panel empty (hint is the only cue)
+    if (!state.openPersona) {
+      el.innerHTML = '';
+      el.classList.remove('is-shown');
+      return;
+    }
+    const key = state.openPersona;
     const lang = state.lang;
     const P = PERSONAS[key];
     const meta = P[lang];
@@ -221,7 +237,7 @@
     const pct = state.pct[key];
     const T = t();
 
-    const el = $('#detail');
+    el.classList.add('is-shown');
     const accent = P.color;
 
     const bodyHtml = txt.body.map((p) => '<p>' + p + '</p>').join('');
@@ -239,11 +255,6 @@
       '<h3 style="color:' + accent + '">' + T.growthTitle + '</h3>' +
       '<div class="grow-card" style="border-left-color:' + accent + '"><p>' + txt.grow + '</p></div>' +
       '<div class="key-message">“' + T.keyMessage + '”</div>';
-
-    // highlight active stone
-    $$('.stone').forEach((s) =>
-      s.style.outline = '' // reset; .is-top handled separately
-    );
   }
 
   /* ---------- MODAL ---------- */
