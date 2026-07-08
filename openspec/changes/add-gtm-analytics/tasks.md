@@ -17,6 +17,9 @@
 - [x] 3.6 Restart button handler → emit `pbl_restart`
 - [x] 3.7 Add a `click` listener on `#cta-btn` → emit `pbl_cta_click` (`top_persona`, `language`); confirm the link still opens in a new tab
 
+> **Manual steps 4.x and 5.1 are documented step-by-step in
+> [`gtm-setup.md`](gtm-setup.md)** — the pick-up-next-time runbook.
+
 ## 4. Verify
 
 - [ ] 4.1 In-browser, run a full EN pass and confirm `pbl_start`, five `pbl_answer`, and `pbl_result` fire with correct payloads (via GTM Preview or `window.dataLayer`)
