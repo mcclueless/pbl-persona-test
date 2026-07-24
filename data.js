@@ -100,19 +100,19 @@ const I18N = {
 const PERSONAS = {
   collaborator: {
     key: 'collaborator',
-    color: 'var(--collab)',
+    color: 'var(--cobalt)',
     en: { name: 'Collaborator', tag: 'Learns through people' },
     nl: { name: 'Collaborator', tag: 'Leert via mensen' },
   },
   analyst: {
     key: 'analyst',
-    color: 'var(--analyst)',
+    color: 'var(--cobalt)',
     en: { name: 'Analyst', tag: 'Learns through structure' },
     nl: { name: 'Analyst', tag: 'Leert via structuur' },
   },
   challenger: {
     key: 'challenger',
-    color: 'var(--challenger)',
+    color: 'var(--cobalt)',
     en: { name: 'Challenger', tag: 'Learns by questioning' },
     nl: { name: 'Challenger', tag: 'Leert door te bevragen' },
   },
