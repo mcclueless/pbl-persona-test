@@ -17,3 +17,12 @@ tmp/
 # Node (only if tooling is added later)
 node_modules/
 npm-debug.log*
+
+# Licensed webfonts — GT Standard is licensed to UM and must not be
+# redistributed through this repository. Supply assets/fonts/ at deploy time;
+# see the "Fonts" section of README.md.
+assets/fonts/*.woff2
+
+# Scratch output
+brag-output/
+.claude/

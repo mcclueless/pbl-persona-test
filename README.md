@@ -17,7 +17,30 @@ python3 -m http.server 8000     # then visit http://localhost:8000
 
 Deploy by uploading the whole folder to any static host (Azure Static Web Apps,
 Netlify, an IIS/Apache/Nginx directory, a CMS asset folder, …). Keep the file
-structure intact.
+structure intact, and include `assets/fonts/` — see below.
+
+## Fonts
+
+The app is set in **GT Standard**, which is licensed to Maastricht University and
+is **deliberately not committed to this repository** — it is public, and the
+licence covers serving the font from UM-owned domains, not redistributing the
+files. `assets/fonts/*.woff2` is gitignored.
+
+A fresh clone will therefore render in `system-ui` until the fonts are supplied.
+To run or deploy with the real typeface, drop these four files into
+`assets/fonts/`:
+
+```
+GT-Standard-L-Standard-Regular.woff2
+GT-Standard-L-Standard-Bold.woff2
+GT-Standard-S-Standard-Regular.woff2
+GT-Standard-S-Standard-Bold.woff2
+```
+
+Request them from M&C (House Style Office). Two notes for anyone doing design
+work: the supplied package has **only Regular (400) and Bold (700)** — no 500,
+600 or 800 — and the two optical sizes are split by rendered size, L at 22px and
+above, S below. See `um-visual-identity.md`.
 
 ## Files
 
@@ -27,7 +50,8 @@ structure intact.
 | `styles.css` | All styling — UM visual identity, responsive, animations |
 | `data.js` | **All content**: questions, answers, persona text, EN/NL copy |
 | `app.js` | Logic: quiz flow, scoring, results, language toggle, modal |
-| `assets/` | UM primary logos (blue + reversed white) |
+| `assets/` | UM primary logos, EN and NL (steel blue) |
+| `assets/fonts/` | GT Standard webfonts — **not in this repo**, see below |
 
 ## Editing content
 
