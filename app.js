@@ -6,6 +6,13 @@
 
   const ORDER = ['collaborator', 'analyst', 'challenger'];
 
+  // Topbar wordmark per language. The alt text follows the wordmark, so a screen
+  // reader announces the name as it is actually written in the logo.
+  const LOGOS = {
+    en: { src: 'assets/um-logo-en-blue.svg', alt: 'Maastricht University' },
+    nl: { src: 'assets/um-logo-nl-blue.svg', alt: 'Universiteit Maastricht' },
+  };
+
   const state = {
     lang: 'en',
     step: 0,                 // 0..QUESTIONS.length-1
@@ -48,6 +55,10 @@
     if (lang !== state.lang) track('pbl_language_switch', { language: lang });
     state.lang = lang;
     document.documentElement.lang = lang;
+    $$('.brand-logo').forEach((img) => {
+      img.setAttribute('src', LOGOS[lang].src);
+      img.setAttribute('alt', LOGOS[lang].alt);
+    });
     $$('.lang-toggle button').forEach((b) =>
       b.classList.toggle('active', b.dataset.lang === lang)
     );
@@ -108,7 +119,6 @@
     renderProgress();
     const Q = QUESTIONS[state.step];
     const lang = state.lang;
-    $('#q-pillar').textContent = Q.pillar[lang];
     $('#q-text').textContent = Q.q[lang];
 
     const wrap = $('#answers');
