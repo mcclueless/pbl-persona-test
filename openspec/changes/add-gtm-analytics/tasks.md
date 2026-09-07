@@ -22,12 +22,30 @@
 
 ## 4. Verify
 
-- [ ] 4.1 In-browser, run a full EN pass and confirm `pbl_start`, five `pbl_answer`, and `pbl_result` fire with correct payloads (via GTM Preview or `window.dataLayer`)
-- [ ] 4.2 Confirm `pbl_persona_open` fires only on open (not collapse), `pbl_language_switch` fires on toggle (not initial load), `pbl_restart` on retake, and `pbl_cta_click` on the CTA
-- [ ] 4.3 Confirm going Back and changing an answer results in only the final answer being reported at completion
-- [ ] 4.4 Confirm the app still works with GTM blocked (no uncaught errors)
+- [x] 4.1 In-browser, run a full EN pass and confirm `pbl_start`, five `pbl_answer`, and `pbl_result` fire with correct payloads (via GTM Preview or `window.dataLayer`)
+- [x] 4.2 Confirm `pbl_persona_open` fires only on open (not collapse), `pbl_language_switch` fires on toggle (not initial load), `pbl_restart` on retake, and `pbl_cta_click` on the CTA
+- [x] 4.3 Confirm going Back and changing an answer results in only the final answer being reported at completion
+- [x] 4.4 Confirm the app still works with GTM blocked (no uncaught errors)
 
 ## 5. Hand-off (outside this repo)
 
-- [ ] 5.1 Provide the event/payload contract to the GTM container owner for trigger/tag → GA4 configuration
+- [x] 5.1 Provide the event/payload contract to the GTM container owner for trigger/tag → GA4 configuration
 - [x] 5.2 Confirm consent/GDPR handling for `tools.maastrichtuniversity.nl` before public launch — confirmed 2026-07-02: handled at the platform level, no in-app gate needed
+
+---
+
+**Verified 2026-09-07.** All eight `pbl_*` events are configured and published in
+container `GTM-5LTFPDLV` (version 9), each firing on its own trigger with the
+correct parameter names, correct variables, and measurement ID `G-KSK91X79BX`.
+
+Tasks 4.1–4.4 were verified against the live site by driving headless Chrome
+over CDP — 7/7 checks: the full pass emits one `pbl_start`, five `pbl_answer`
+and one `pbl_result` with correct payloads; `pbl_persona_open` and
+`pbl_language_switch` fire on change only, not on collapse or re-click;
+`pbl_cta_click` and `pbl_survey_click` both carry `top_persona` and `language`;
+a changed answer reports only the final choice; and the quiz runs clean with
+`googletagmanager.com` blocked.
+
+Outstanding before archiving: the GA4 custom dimensions and metrics
+(`openspec/changes/add-feedback-survey/gtm-remaining-events.md`, step 6), which
+are not retroactive, and a Realtime confirmation.

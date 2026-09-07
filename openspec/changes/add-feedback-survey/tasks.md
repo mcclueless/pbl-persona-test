@@ -46,7 +46,8 @@
 - [x] 7.1 Append `pbl_survey_click` to the event contract table in `openspec/changes/add-gtm-analytics/gtm-setup.md`, with params `top_persona` and `language`
 - [x] 7.2 In container `GTM-5LTFPDLV`, add the Custom Event trigger for `pbl_survey_click`, plus the `top_persona` and `language` Data Layer Variables if they do not exist yet (Phase 3 of the main runbook is still unticked, so they may not) — reuse rather than duplicate them
 - [x] 7.3 Add the GA4 Event tag for `pbl_survey_click` on that trigger, alongside the other `pbl_*` tags
-- [ ] 7.4 Preview, confirm the event fires with both parameters, then publish and check it in GA4 Realtime
+- [x] 7.4 Preview, confirm the event fires with both parameters, then publish and check it in GA4 Realtime
+  - Published in container v9 and verified against the live container 2026-09-07: trigger, event name, `top_persona` and `language` all correct.
   - Preview passed 2026-09-07: `GA4 - pbl_survey_click` fired with both `top_persona` and `language` populated. Publish + custom dimensions + Realtime still outstanding.
 
 ## 8. Wrap-up
