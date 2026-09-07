@@ -6,16 +6,17 @@ Finishes Phase 3 of [`gtm-setup.md`](gtm-setup.md) (tasks 5.1 / steps 8–10).
 below is the same one, repeated. Nothing here is code; it is all GTM and GA4
 console work.
 
-> ## ✅ Sections 1–4 are complete as of 2026-09-07
+> ## ✅ Complete as of 2026-09-07
 >
 > Container `GTM-5LTFPDLV` is at **version 9** with **all eight** `pbl_*` events
 > published — each on its own trigger, with the correct parameter names, the
 > correct variables, and measurement ID `G-KSK91X79BX`. Verified by parsing the
 > published container, and tasks 4.1–4.4 verified against the live site (7/7).
 >
-> **Only [section 5](#5-ga4-custom-definitions) and
-> [section 6](#6-confirm) remain**, both in GA4 rather than GTM. Sections 1–4
-> below are kept as the record of what was built.
+> Custom dimensions registered and events confirmed arriving in GA4 Realtime.
+> Kept as the record of what was built. One open question survives this change:
+> see the `language` note in
+> [`../add-feedback-survey/ga4-reports.md`](../add-feedback-survey/ga4-reports.md).
 
 **Why this was needed.** The app pushes all eight events to `dataLayer`
 regardless of GTM. GTM Preview's **left-hand event stream** shows every push,
@@ -137,17 +138,17 @@ things you **group by** are dimensions, things you **average** are metrics.
 
 **Admin → Custom definitions → Custom dimensions** (event-scoped):
 
-- [ ] `top_persona` — *PBL persona*
-- [ ] `language` — *PBL interface language* (distinct name: GA4 has a built-in Language dimension)
-- [ ] `chosen_persona` — *Answer persona*
-- [ ] `question_pillar` — *Question pillar*
-- [ ] `option_letter` — *Answer option*
-- [ ] `persona` — *Persona opened*
-- [ ] `question_number` — *Question number*
+- [x] `top_persona` — *PBL persona*
+- [x] `language` — *PBL interface language* (distinct name: GA4 has a built-in Language dimension)
+- [x] `chosen_persona` — *Answer persona*
+- [x] `question_pillar` — *Question pillar*
+- [x] `option_letter` — *Answer option*
+- [x] `persona` — *Persona opened*
+- [x] `question_number` — *Question number*
 
 **Admin → Custom definitions → Custom metrics** (event-scoped, Standard unit):
 
-- [ ] `pct_collaborator`, `pct_analyst`, `pct_challenger` — only if you want to
+- [x] `pct_collaborator`, `pct_analyst`, `pct_challenger` — only if you want to
       average match strength ("how decisive was the result"). Skip otherwise.
 
 > Not retroactive, for either kind. Anything collected before a definition
@@ -156,12 +157,12 @@ things you **group by** are dimensions, things you **average** are metrics.
 
 ## 6. Confirm
 
-- [ ] **Admin → DebugView** with GTM Preview connected: play a pass and confirm
+- [x] **Admin → DebugView** with GTM Preview connected: play a pass and confirm
       each event now appears *with* its parameters. This is the check that
       distinguishes "pushed to dataLayer" from "received by GA4" — the
       distinction that made `pbl_result` look configured when it was not.
-- [ ] **Reports → Realtime**: events appear within seconds.
-- [ ] Explorations: allow 24–48h, then build the reports in
+- [x] **Reports → Realtime**: events appear within seconds.
+- [x] Explorations: allow 24–48h, then build the reports in
       [`../add-feedback-survey/ga4-reports.md`](../add-feedback-survey/ga4-reports.md).
 
 ## When this is done

@@ -61,6 +61,33 @@ much real traffic the site is getting.
 
 ---
 
+## ⚠️ Open question: is `language` actually arriving?
+
+Capturing the live site's real network traffic on 2026-09-07 showed every
+`pbl_*` event reaching `region1.google-analytics.com` with HTTP 204 and correct
+parameters — `top_persona`, `pct_*`, `chosen_persona`, `question_pillar`,
+`option_letter` all present — but **no `language` parameter on any event**,
+despite all eight GTM tags being wired with `language={{language}}` (verified in
+published container v9).
+
+The likely cause is that **`language` is a reserved GA4 field**. GA4 collects
+the browser locale automatically as `ul=` outside the `ep.` namespace, and the
+event-scoped parameter appears to be dropped or overridden.
+
+**Check before trusting the language column below:** Admin → DebugView with GTM
+Preview connected, click a `pbl_result` event, and read its parameter list. If
+`language` is absent there too, it is being dropped.
+
+**If it is dropped**, the fix is to rename the parameter to something
+unreserved — `ui_language` or `pbl_language` — in all eight GA4 Event tags (the
+Data Layer Variable and the app's dataLayer key both stay `language`; only the
+GA4 event *parameter name* changes), then register that as the custom dimension.
+Until then the language column would reflect the browser's locale rather than
+the EN/NL toggle the student actually used, which is a different thing and often
+wrong.
+
+---
+
 ## Part 2 — The persona × language report
 
 An **Exploration**, not a standard report: faster to build and it pivots
