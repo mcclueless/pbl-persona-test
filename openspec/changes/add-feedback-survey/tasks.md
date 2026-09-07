@@ -45,4 +45,4 @@
 ## 8. Wrap-up
 
 - [x] 8.1 Confirm the result screen still reads correctly on a narrow viewport with three interactive elements stacked in and below the CTA block
-- [ ] 8.2 Commit and push to `main`
+- [x] 8.2 Commit and push to `main`
