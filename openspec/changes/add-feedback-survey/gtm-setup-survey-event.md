@@ -98,6 +98,13 @@ Skip any that already exist — do **not** create duplicates.
 
 - [ ] 13. **Preview**, enter the live URL, and play through: finish the test,
       then click "Help us improve this test".
+
+      > Do **not** Submit first. Preview runs your *workspace* — every change
+      > you have **Saved** in its own editor, published or not — which is the
+      > whole point: you test before it reaches visitors. Publishing is step 16,
+      > after this passes. If a tag is missing from Tag Assistant, an unsaved
+      > editor is the first thing to check; saved is not the same as published,
+      > and only saved is needed here.
 - [ ] 14. In Tag Assistant, select the `pbl_survey_click` event and confirm
       `GA4 - pbl_survey_click` is under **Tags Fired**, with `top_persona` and
       `language` holding real values — not `undefined`. `undefined` means the
