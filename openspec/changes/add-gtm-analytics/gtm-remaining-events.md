@@ -6,20 +6,31 @@ Finishes Phase 3 of [`gtm-setup.md`](gtm-setup.md) (tasks 5.1 / steps 8–10).
 below is the same one, repeated. Nothing here is code; it is all GTM and GA4
 console work.
 
-> **Why this is needed.** The app pushes all eight events to `dataLayer`
-> regardless of GTM. GTM Preview's **left-hand event stream** shows every push,
-> tagged or not — which is why `pbl_result` looks like it is "working" there.
-> Only an event with a **trigger and a GA4 tag** is forwarded to GA4. Today
-> exactly one is, so seven of the eight are collected by the browser and thrown
-> away.
+> ## ✅ Sections 1–4 are complete as of 2026-09-07
+>
+> Container `GTM-5LTFPDLV` is at **version 9** with **all eight** `pbl_*` events
+> published — each on its own trigger, with the correct parameter names, the
+> correct variables, and measurement ID `G-KSK91X79BX`. Verified by parsing the
+> published container, and tasks 4.1–4.4 verified against the live site (7/7).
+>
+> **Only [section 5](#5-ga4-custom-definitions) and
+> [section 6](#6-confirm) remain**, both in GA4 rather than GTM. Sections 1–4
+> below are kept as the record of what was built.
 
-## What already exists — do not recreate
+**Why this was needed.** The app pushes all eight events to `dataLayer`
+regardless of GTM. GTM Preview's **left-hand event stream** shows every push,
+tagged or not — which is why `pbl_result` looked like it was "working" there
+while never reaching GA4. Only an event with a **trigger and a GA4 tag** is
+forwarded.
 
-| | Already in the container |
-|---|---|
-| Measurement ID | `G-KSK91X79BX` |
-| Data Layer Variables | `top_persona`, `language` |
-| Trigger + GA4 tag | `pbl_survey_click` |
+> **The lesson worth keeping.** Through versions 3 to 8 the GTM UI reported
+> eight tags while the published container shipped seven, and then shipped a
+> tag whose event name did not match its trigger (`pbl_survey_click` firing on
+> `pbl_result`, so completions were recorded as survey clicks). None of that is
+> visible from inside GTM. The published container at
+> `https://www.googletagmanager.com/gtm.js?id=GTM-5LTFPDLV` is the only source
+> of truth — check the version number and the tag/trigger pairing there, not
+> the workspace.
 
 ## The seven to add
 
@@ -54,14 +65,14 @@ are built on.
 Variables → **User-Defined Variables** → New → **Data Layer Variable**. Name each
 variable exactly as its Data Layer Variable Name, Version 2, default value empty.
 
-- [ ] `persona`
-- [ ] `question_number`
-- [ ] `question_pillar`
-- [ ] `chosen_persona`
-- [ ] `option_letter`
-- [ ] `pct_collaborator`
-- [ ] `pct_analyst`
-- [ ] `pct_challenger`
+- [x] `persona`
+- [x] `question_number`
+- [x] `question_pillar`
+- [x] `chosen_persona`
+- [x] `option_letter`
+- [x] `pct_collaborator`
+- [x] `pct_analyst`
+- [x] `pct_challenger`
 
 `top_persona` and `language` already exist — skip them, do not create duplicates.
 
@@ -74,13 +85,13 @@ variable exactly as its Data Layer Variable Name, Version 2, default value empty
 Triggers → New → **Custom Event**. Event name typed exactly, regex matching
 **off**, fires on **All Custom Events**. Name each trigger after its event.
 
-- [ ] `pbl_result`
-- [ ] `pbl_answer`
-- [ ] `pbl_cta_click`
-- [ ] `pbl_persona_open`
-- [ ] `pbl_start`
-- [ ] `pbl_restart`
-- [ ] `pbl_language_switch`
+- [x] `pbl_result`
+- [x] `pbl_answer`
+- [x] `pbl_cta_click`
+- [x] `pbl_persona_open`
+- [x] `pbl_start`
+- [x] `pbl_restart`
+- [x] `pbl_language_switch`
 
 Copy-and-edit works here too: only the Event name field changes between them.
 
@@ -98,26 +109,26 @@ Fastest route: open the existing `GA4 - pbl_survey_click` tag, **three-dot menu 
 Copy**, then change the event name, the parameters and the trigger. Every tag
 after the first is about a minute.
 
-- [ ] `GA4 - pbl_result`
-- [ ] `GA4 - pbl_answer`
-- [ ] `GA4 - pbl_cta_click`
-- [ ] `GA4 - pbl_persona_open`
-- [ ] `GA4 - pbl_start`
-- [ ] `GA4 - pbl_restart`
-- [ ] `GA4 - pbl_language_switch`
+- [x] `GA4 - pbl_result`
+- [x] `GA4 - pbl_answer`
+- [x] `GA4 - pbl_cta_click`
+- [x] `GA4 - pbl_persona_open`
+- [x] `GA4 - pbl_start`
+- [x] `GA4 - pbl_restart`
+- [x] `GA4 - pbl_language_switch`
 
 ## 4. Preview, then publish
 
-- [ ] Preview against `https://tools.maastrichtuniversity.nl/pbl/` and play a
+- [x] Preview against `https://tools.maastrichtuniversity.nl/pbl/` and play a
       full pass: start, five answers, the result, expand a persona, toggle the
       language, click the CTA, click the feedback link, retake.
-- [ ] For each event, select it in the left event stream and check the **Tags**
+- [x] For each event, select it in the left event stream and check the **Tags**
       tab: the matching tag under **Tags Fired**, with real values rather than
       `undefined`.
-- [ ] Expect exactly **five** `pbl_answer` tags on one pass — the app reports
+- [x] Expect exactly **five** `pbl_answer` tags on one pass — the app reports
       final answers only, all at completion, so five is correct and one-per-click
       is not.
-- [ ] **Submit → Publish.**
+- [x] **Submit → Publish.**
 
 ## 5. GA4 custom definitions
 
