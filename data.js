@@ -41,7 +41,7 @@ const I18N = {
     /* Feedback survey — base URL only; the query string is built at render
        time in app.js, because it depends on the result and the live language. */
     surveyLink: 'Help us improve this test',
-    surveyUrl: 'https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE',
+    surveyUrl: 'https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS',
     /* Modal */
     modalTitle: 'Get your PBL infographic',
     modalSub: "Pop in your details and we'll send the infographic straight to your inbox.",
@@ -87,7 +87,7 @@ const I18N = {
     ctaUrl: 'https://www.maastrichtuniversity.nl/study/get-to-know-us/engage-problem-based-learning',
     restart: 'Doe de test opnieuw',
     surveyLink: 'Help ons deze test te verbeteren',
-    surveyUrl: 'https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS',
+    surveyUrl: 'https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE',
     modalTitle: 'Ontvang jouw PBL-infographic',
     modalSub: 'Vul je gegevens in en we sturen de infographic direct naar je toe.',
     fName: 'Voornaam',

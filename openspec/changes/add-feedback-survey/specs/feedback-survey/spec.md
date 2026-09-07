@@ -32,18 +32,18 @@ The link SHALL be rendered as a tertiary text link — the same quiet treatment 
 
 The application SHALL hold one survey base URL per interface language and SHALL link to the survey matching the currently selected language.
 
-- English: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
-- Dutch: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
+- English: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
+- Dutch: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
 
 #### Scenario: The interface is in English
 
 - **WHEN** the result screen is rendered with English selected
-- **THEN** the feedback link points at the English survey `SV_em1huq9t56bJHrE`
+- **THEN** the feedback link points at the English survey `SV_0r2st1QZQMgRxSS`
 
 #### Scenario: The interface is in Dutch
 
 - **WHEN** the result screen is rendered with Dutch selected
-- **THEN** the feedback link points at the Dutch survey `SV_0r2st1QZQMgRxSS`
+- **THEN** the feedback link points at the Dutch survey `SV_em1huq9t56bJHrE`
 
 ### Requirement: The feedback link is labelled in the selected language
 

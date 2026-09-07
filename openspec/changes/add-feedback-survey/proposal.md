@@ -6,8 +6,8 @@ Students finish the PBL Persona Test and have no way to tell us what they though
 
 - Add a feedback link at the end of the test, on the result screen, inside the existing CTA block below the "Explore PBL at UM" button. It is a quiet text link in dove grey — not a second cobalt button — so it does not compete with the recruitment CTA for attention.
 - Point the link at the language-matched Qualtrics survey:
-  - EN: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
-  - NL: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
+  - EN: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
+  - NL: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
 - Carry result context into Qualtrics as query parameters: `?persona=<top persona>&lang=<en|nl>&source=pbltool`.
 - Rebuild the link's `href` whenever the result screen renders, so it follows the live top persona and the live UI language (the EN/NL toggle stays available on the result screen, and a retake can change the persona).
 - Open the survey in a new tab so the student's result survives the click.

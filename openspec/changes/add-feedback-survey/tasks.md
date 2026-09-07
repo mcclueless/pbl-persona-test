@@ -1,7 +1,7 @@
 ## 1. Copy and URLs (`data.js`)
 
-- [x] 1.1 Add `surveyUrl` to `I18N.en` — `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE` — placed next to `ctaUrl`, storing the bare form URL with no query string
-- [x] 1.2 Add `surveyUrl` to `I18N.nl` — `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
+- [x] 1.1 Add `surveyUrl` to `I18N.en` — `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS` — placed next to `ctaUrl`, storing the bare form URL with no query string
+- [x] 1.2 Add `surveyUrl` to `I18N.nl` — `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
 - [x] 1.3 Add the link label `surveyLink` to both languages in sentence case: EN `Help us improve this test`, NL `Help ons deze test te verbeteren`
 
 ## 2. Markup (`index.html`)
@@ -22,7 +22,7 @@
 
 ## 5. Browser verification (code)
 
-- [x] 5.1 Complete an EN pass and confirm the link resolves to `SV_em1huq9t56bJHrE` with `persona`, `lang=en`, and `source=pbltool` matching the persona shown on screen
+- [x] 5.1 Complete an EN pass and confirm the link resolves to `SV_0r2st1QZQMgRxSS` with `persona`, `lang=en`, and `source=pbltool` matching the persona shown on screen
 - [x] 5.2 Switch the finished result screen to NL and confirm both the survey ID and the `lang` parameter change, and that the label switches to Dutch
 - [x] 5.3 Retake the test, land on a different top persona, and confirm the `persona` parameter updates rather than carrying over from the previous attempt
 - [x] 5.4 Confirm the link opens in a new tab and the result screen is still intact in the original tab
@@ -30,7 +30,8 @@
 
 ## 6. Qualtrics console (NOT code — external system)
 
-- [ ] 6.1 Verify the survey mapping before anything else: open both URLs and confirm `SV_em1huq9t56bJHrE` is the English survey and `SV_0r2st1QZQMgRxSS` is the Dutch one; a swap fails silently and sends students to the wrong-language survey
+- [x] 6.1 Verify the survey mapping before anything else: open both URLs and confirm `SV_0r2st1QZQMgRxSS` is the English survey and `SV_em1huq9t56bJHrE` is the Dutch one; a swap fails silently and sends students to the wrong-language survey
+  - Confirmed by the owner 2026-09-07: the mapping was **swapped** in the original hand-off. Corrected in `data.js`, `proposal.md`, and the spec; re-verified in-browser.
 - [ ] 6.2 In the **English** survey → Survey Flow, add an Embedded Data element at the very top with fields `persona`, `lang`, and `source`, each left as "Value will be set from Panel or URL"; save and publish
 - [ ] 6.3 Repeat 6.2 in the **Dutch** survey — Qualtrics discards the parameters entirely if this is missing, with no visible error
 - [ ] 6.4 Submit one test response through a parameterised link in each survey and confirm all three fields appear in the recorded response
