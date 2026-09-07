@@ -520,6 +520,18 @@ body {
 }
 .btn-download:hover { transform: translateY(-2px); box-shadow: 0 20px 44px -14px rgba(53,91,208,0.65); }
 
+/* Quiet tertiary link — same treatment as .btn-restart. Used for the feedback
+   survey so it reads as subordinate to the cobalt CTA above it. */
+.btn-quiet {
+  margin-top: 16px;
+  color: var(--dove);
+  font-family: var(--font-body); font-size: 13.5px;
+  text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  transition: color 0.2s;
+}
+.btn-quiet:hover { color: var(--steel); }
+
 .btn-restart {
   margin: 20px auto 4px;
   background: none; border: none;

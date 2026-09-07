@@ -27,6 +27,7 @@ pass — none of it requires code changes.
 | `pbl_language_switch` | EN/NL toggled (not on initial load) | `language` |
 | `pbl_restart` | "Retake the test" clicked | `language` |
 | `pbl_cta_click` | "Explore PBL at UM" clicked | `top_persona`, `language` |
+| `pbl_survey_click` | feedback survey link clicked | `top_persona`, `language` |
 
 All values are language-agnostic (English persona/pillar keys) so EN + NL
 aggregate together.
@@ -70,6 +71,7 @@ Covers tasks 4.1–4.4 in `tasks.md`.
   - Tap a persona → `pbl_persona_open`; tap again to collapse → nothing
   - Toggle EN/NL → `pbl_language_switch`; click the same language again → nothing
   - "Explore PBL at UM" → `pbl_cta_click`
+  - "Help us improve this test" → `pbl_survey_click`
   - "Retake the test" → `pbl_restart`
 - [ ] 6. (task 4.4) Turn on a tracker blocker or block `googletagmanager.com`
       in DevTools, reload, confirm the quiz still works with no console errors.
@@ -87,7 +89,7 @@ In tagmanager.google.com, open `GTM-5LTFPDLV`.
 - [ ] 9. **Triggers:** Triggers → New → **Custom Event**, one per event, with
       the Event name field set exactly to: `pbl_start`, `pbl_answer`,
       `pbl_result`, `pbl_persona_open`, `pbl_language_switch`, `pbl_restart`,
-      `pbl_cta_click`.
+      `pbl_cta_click`, `pbl_survey_click`.
 - [ ] 10. **GA4 Event tags:** Tags → New → **GA4 Event**, one per event. Event
       Name = the `pbl_*` name, add Event Parameters from the variables, attach
       the matching trigger. Example:
@@ -102,8 +104,9 @@ In tagmanager.google.com, open `GTM-5LTFPDLV`.
           language        = {{language}}
         Trigger: pbl_answer
       ```
-      (`pbl_result` → `top_persona` + `pct_*`; `pbl_cta_click` → `top_persona`
-      + `language`; the rest → just `language`.)
+      (`pbl_result` → `top_persona` + `pct_*`; `pbl_cta_click` and
+      `pbl_survey_click` → `top_persona` + `language` — both reuse the same
+      two variables, no new ones needed; the rest → just `language`.)
 
 ## Phase 4 — Preview, publish, finish GA4
 

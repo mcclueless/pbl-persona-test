@@ -251,6 +251,19 @@
     return stone;
   }
 
+  // The feedback survey link carries the result into Qualtrics so responses can
+  // be read per persona. Built here rather than stored in data.js: the persona
+  // is unknown until the quiz completes, and both persona and language can
+  // change while the result screen is open (retake, EN/NL toggle). renderResult
+  // re-runs on both, so the href can never go stale.
+  function surveyHref() {
+    const T = t();
+    return T.surveyUrl +
+      '?persona=' + encodeURIComponent(state.topPersona) +
+      '&lang=' + encodeURIComponent(state.lang) +
+      '&source=pbltool';
+  }
+
   function renderResult() {
     const T = t();
     $('#result-kicker').textContent = T.resultKicker;
@@ -261,6 +274,8 @@
     $('#cta-text').textContent = T.ctaText;
     $('#cta-btn-label').textContent = T.ctaBtn;
     $('#cta-btn').href = T.ctaUrl;
+    $('#survey-link-label').textContent = T.surveyLink;
+    $('#survey-link').href = surveyHref();
     $('#restart-label').textContent = T.restart;
 
     const grid = $('#stones-grid');
@@ -370,6 +385,11 @@
     // infographic is ready.
     $('#cta-btn').addEventListener('click', () => {
       track('pbl_cta_click', { top_persona: state.topPersona, language: state.lang });
+    });
+    // Feedback survey link (href set in renderResult). Same shape as the CTA
+    // above: opens in a new tab, so the push lands before the user leaves.
+    $('#survey-link').addEventListener('click', () => {
+      track('pbl_survey_click', { top_persona: state.topPersona, language: state.lang });
     });
     $('#modal-overlay').addEventListener('click', (e) => {
       if (e.target === $('#modal-overlay')) closeModal();
