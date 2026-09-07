@@ -41,6 +41,7 @@
 ## 7. GTM console (NOT code — external system)
 
 > Step-by-step runbook: [`gtm-setup-survey-event.md`](gtm-setup-survey-event.md)
+> Reading the data afterwards: [`ga4-reports.md`](ga4-reports.md)
 
 - [x] 7.1 Append `pbl_survey_click` to the event contract table in `openspec/changes/add-gtm-analytics/gtm-setup.md`, with params `top_persona` and `language`
 - [x] 7.2 In container `GTM-5LTFPDLV`, add the Custom Event trigger for `pbl_survey_click`, plus the `top_persona` and `language` Data Layer Variables if they do not exist yet (Phase 3 of the main runbook is still unticked, so they may not) — reuse rather than duplicate them
