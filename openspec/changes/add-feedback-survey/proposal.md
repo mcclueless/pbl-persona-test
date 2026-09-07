@@ -24,7 +24,7 @@ Non-goals: this change does **not** author or edit the Qualtrics surveys themsel
 
 ### Modified Capabilities
 
-- `analytics-tracking`: One added requirement — feedback-survey clicks are tracked as `pbl_survey_click`. Note this capability's baseline is not yet in `openspec/specs/`; it currently lives in the in-progress `add-gtm-analytics` change and merges into the main specs when that change is archived. This delta is written to stack cleanly on top of it either way.
+- `analytics-tracking`: One added requirement — feedback-survey clicks are tracked as `pbl_survey_click`. Its baseline is now in `openspec/specs/analytics-tracking/spec.md`, synced when `add-gtm-analytics` was archived on 2026-09-07. This delta stacks on top of it.
 
 ## Impact
 

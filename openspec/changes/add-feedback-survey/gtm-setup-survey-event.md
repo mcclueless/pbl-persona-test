@@ -4,7 +4,7 @@ Runbook for tasks 7.2–7.4 of `add-feedback-survey`. Console work in Google Tag
 Manager and GA4, not code.
 
 This is a **delta** on the main runbook at
-[`../add-gtm-analytics/gtm-setup.md`](../add-gtm-analytics/gtm-setup.md), which
+[`../add-gtm-analytics/gtm-setup.md`](../archive/2026-09-07-add-gtm-analytics/gtm-setup.md), which
 covers all eight `pbl_*` events. If none of that has been done yet, work through
 that file's Phase 3 first — the base Google tag is a prerequisite for everything
 below, and while you are in there it is cheaper to configure all eight events in
