@@ -30,6 +30,8 @@
 
 ## 6. Qualtrics console (NOT code — external system)
 
+> Step-by-step runbook: [`qualtrics-setup.md`](qualtrics-setup.md)
+
 - [x] 6.1 Verify the survey mapping before anything else: open both URLs and confirm `SV_0r2st1QZQMgRxSS` is the English survey and `SV_em1huq9t56bJHrE` is the Dutch one; a swap fails silently and sends students to the wrong-language survey
   - Confirmed by the owner 2026-09-07: the mapping was **swapped** in the original hand-off. Corrected in `data.js`, `proposal.md`, and the spec; re-verified in-browser.
 - [ ] 6.2 In the **English** survey → Survey Flow, add an Embedded Data element at the very top with fields `persona`, `lang`, and `source`, each left as "Value will be set from Panel or URL"; save and publish
@@ -38,8 +40,10 @@
 
 ## 7. GTM console (NOT code — external system)
 
+> Step-by-step runbook: [`gtm-setup-survey-event.md`](gtm-setup-survey-event.md)
+
 - [x] 7.1 Append `pbl_survey_click` to the event contract table in `openspec/changes/add-gtm-analytics/gtm-setup.md`, with params `top_persona` and `language`
-- [ ] 7.2 In container `GTM-5LTFPDLV`, add the Custom Event trigger for `pbl_survey_click` (the `top_persona` and `language` Data Layer Variables already exist for `pbl_cta_click` — reuse them rather than creating duplicates)
+- [ ] 7.2 In container `GTM-5LTFPDLV`, add the Custom Event trigger for `pbl_survey_click`, plus the `top_persona` and `language` Data Layer Variables if they do not exist yet (Phase 3 of the main runbook is still unticked, so they may not) — reuse rather than duplicate them
 - [ ] 7.3 Add the GA4 Event tag for `pbl_survey_click` on that trigger, alongside the other `pbl_*` tags
 - [ ] 7.4 Preview, confirm the event fires with both parameters, then publish and check it in GA4 Realtime
 
