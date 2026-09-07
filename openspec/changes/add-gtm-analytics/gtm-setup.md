@@ -80,6 +80,12 @@ Covers tasks 4.1–4.4 in `tasks.md`.
 
 In tagmanager.google.com, open `GTM-5LTFPDLV`.
 
+> **Status as of 2026-09-07:** the base Google tag (`G-KSK91X79BX`), the
+> `top_persona` and `language` variables, and the `pbl_survey_click`
+> trigger + tag are published. The other seven events are not — see
+> [`gtm-remaining-events.md`](gtm-remaining-events.md) for a step-by-step
+> of exactly what is left.
+
 - [ ] 7. **Base GA4 tag (once):** Tags → New → **Google tag**. Tag ID =
       `G-XXXXXXXX`. Trigger = **Initialization – All Pages**. Save.
 - [ ] 8. **Data Layer Variables:** Variables → New → **Data Layer Variable**,
