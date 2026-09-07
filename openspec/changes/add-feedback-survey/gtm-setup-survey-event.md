@@ -32,9 +32,30 @@ deliberate: it makes the two outbound clicks directly comparable, and it means
 
 ## Prerequisites
 
-- [ ] 0. Access to GTM container `GTM-5LTFPDLV` at `tagmanager.google.com`, and
-      the GA4 property's Measurement ID (`G-XXXXXXXX`).
-- [ ] 0b. The base **Google tag** exists in the container, firing on
+- [ ] 0. Access to GTM container `GTM-5LTFPDLV` at `tagmanager.google.com`.
+- [ ] 0b. **The GA4 Measurement ID.** Every GA4 tag asks for it and it cannot be
+      left empty. Find it at **GA4 → Admin → Data streams → your web stream →
+      Measurement ID** (top right). Format: `G-` plus about ten characters.
+
+      It is none of the other IDs in play:
+
+      | What | Looks like | Correct? |
+      |---|---|---|
+      | GA4 Measurement ID | `G-XXXXXXXXXX` | ✅ |
+      | GTM container ID | `GTM-5LTFPDLV` | ❌ |
+      | GA4 property ID | `123456789` | ❌ |
+      | Stream ID | `1234567890` | ❌ |
+
+      If **Data streams** is empty, that is the real blocker: a GA4 property with
+      a web data stream has to exist first. Check whether UM already runs a
+      central GA4 property before creating a new one — a second property splits
+      the data across two places.
+- [ ] 0c. **Store it once.** Variables → New → **Constant**, named
+      `GA4 Measurement ID`, value `G-XXXXXXXXXX`. Every GA4 tag then references
+      `{{GA4 Measurement ID}}` instead of a typed-in literal. With eight `pbl_*`
+      tags to configure, this is the difference between one edit and eight if the
+      property ever changes.
+- [ ] 0d. The base **Google tag** exists in the container, firing on
       *Initialization – All Pages*. (Phase 3, step 7 of the main runbook.)
 
 ## 1. Data Layer Variables
@@ -58,8 +79,10 @@ Skip any that already exist — do **not** create duplicates.
 ## 3. GA4 Event tag
 
 - [ ] 7. **Tags → New → Tag Configuration → Google Analytics: GA4 Event.**
-- [ ] 8. Point it at your Google tag / Measurement ID, the same way the other
-      `pbl_*` tags do.
+- [ ] 8. **Measurement ID:** `{{GA4 Measurement ID}}` (the Constant from step 0c),
+      or the `G-…` value typed in directly. This field is required — some GTM
+      versions can inherit it from the base Google tag, but if yours is asking,
+      fill it in.
 - [ ] 9. **Event Name:** `pbl_survey_click`.
 - [ ] 10. **Event Parameters** — add two rows:
 
