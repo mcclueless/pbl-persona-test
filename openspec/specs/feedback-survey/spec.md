@@ -4,7 +4,7 @@
 
 The end-of-test route into the external Qualtrics feedback surveys — where the link appears on the result screen and how it is presented, which survey each interface language gets, and what result context travels with the student so responses can be read per persona.
 
-Synced from `add-feedback-survey`. The link ships as a cobalt button in its own block, below the recruitment call-to-action; it began as a quiet text link and was escalated on 2026-09-11 after going unseen. The surveys themselves are external artefacts this capability links to but does not author — at the time of syncing, the Qualtrics Embedded Data elements that let each survey retain `persona`, `lang`, and `source` were still outstanding.
+Synced from `add-feedback-survey`. The link ships as a cobalt button in its own block, below the recruitment call-to-action; it began as a quiet text link and was escalated on 2026-09-11 after going unseen. The surveys themselves are external artefacts this capability links to but does not author.
 
 ## Requirements
 
