@@ -61,6 +61,7 @@
 
 ## 8. Wrap-up
 
-- [ ] 8.1 Confirm the result screen still reads correctly on a narrow viewport with two stacked cobalt buttons in separate blocks plus the restart control, and that the Dutch label `Help ons deze test te verbeteren` does not wrap awkwardly inside the button
+- [x] 8.1 Confirm the result screen still reads correctly on a narrow viewport with two stacked cobalt buttons in separate blocks plus the restart control, and that the Dutch label `Help ons deze test te verbeteren` does not wrap awkwardly inside the button
+  - Confirmed by the owner against the local dev server 2026-09-11.
 - [x] 8.2 Commit and push to `main`
   - Committed and pushed 2026-09-11 (`585bc8b`).
