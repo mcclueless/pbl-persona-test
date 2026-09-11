@@ -1,3 +1,8 @@
+> **Revision 2026-09-11** — the feedback link is being escalated from a quiet text link to a
+> cobalt button in its own block (see *Cobalt button in its own block* in `design.md`). Tasks
+> 2.1-2.2, 3.1-3.2, 8.1-8.2 are reopened; the `data.js`, `app.js`, and Qualtrics/GTM work is
+> unaffected, because the element `id`, the URL, the parameters, and the event are unchanged.
+
 ## 1. Copy and URLs (`data.js`)
 
 - [x] 1.1 Add `surveyUrl` to `I18N.en` — `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS` — placed next to `ctaUrl`, storing the bare form URL with no query string
@@ -6,13 +11,15 @@
 
 ## 2. Markup (`index.html`)
 
-- [x] 2.1 Add an `<a id="survey-link" class="btn-quiet">` inside the `.cta` block, immediately after the `#cta-btn` anchor, with `target="_blank" rel="noopener noreferrer"` and an empty `<span id="survey-link-label">` for the label
-- [x] 2.2 Give the link the same trailing external-link arrow icon treatment as `#cta-btn`, sized down to match a text link
+- [x] 2.1 Move the `<a id="survey-link">` out of the `.cta` block into a new sibling block placed immediately after it and before `.result-foot`; keep the `id`, `target="_blank" rel="noopener noreferrer"`, and the empty `<span id="survey-link-label">` exactly as they are, so `app.js` needs no change
+- [x] 2.2 Replace `class="btn-quiet"` with the cobalt button treatment, and restore the external-link icon to the same 20px size as `#cta-btn` now that it is a button rather than a text link
 
 ## 3. Styling (`styles.css`)
 
-- [x] 3.1 Add a `.btn-quiet` rule reusing the existing `.btn-restart` treatment — dove text, no background, no border, inline-flex with a small gap — and a hover that darkens to steel
-- [x] 3.2 Confirm the link sits below the cobalt button with enough spacing to read as subordinate, and that `#cta-btn` remains the only filled cobalt button *within the CTA block* (the non-top persona cards are cobalt-filled too, which is pre-existing and outside this change)
+- [x] 3.1 Give the survey button the cobalt treatment — `#355BD0` background, white text, `20px` radius — by reusing the existing `.btn-download` rule rather than duplicating it, and add a rule for the new block matching the spacing of the `.cta` block above it
+- [x] 3.2 Confirm each block contains exactly one filled button, that the recruitment CTA block comes first, and that the survey block sits between the CTA block and "Retake the test"
+  - Verified in markup and CSS 2026-09-11: `.cta` and `.survey-cta` are siblings in that order, one filled button each. `.survey-cta` carries `padding: 0 24px` plus a transparent 1.5px border so its box matches `.cta` exactly under the global `border-box` — without both, the survey button renders 48px (no padding) or 3px (no border) wider than the CTA above it. Visual confirmation still pending in 8.1.
+- [x] 3.3 Remove the now-unused `.btn-quiet` rule from `styles.css` once nothing references it — `.btn-restart` is a separate rule and stays
 
 ## 4. Behaviour and analytics (`app.js`)
 
@@ -27,6 +34,7 @@
 - [x] 5.3 Retake the test, land on a different top persona, and confirm the `persona` parameter updates rather than carrying over from the previous attempt
 - [x] 5.4 Confirm the link opens in a new tab and the result screen is still intact in the original tab
 - [x] 5.5 Confirm `pbl_survey_click` appears in `window.dataLayer` with the expected payload, and that the survey still opens with GTM blocked
+- [ ] 5.6 Re-run one EN pass after the restyle confirming the href, the label, the new tab, and `pbl_survey_click` all still work from the anchor's new location. `app.js` is untouched, so this is a smoke check that the `id` survived the move rather than a re-test of 5.1-5.5
 
 ## 6. Qualtrics console (NOT code — external system)
 
@@ -52,5 +60,7 @@
 
 ## 8. Wrap-up
 
-- [x] 8.1 Confirm the result screen still reads correctly on a narrow viewport with three interactive elements stacked in and below the CTA block
-- [x] 8.2 Commit and push to `main`
+- [ ] 8.1 Confirm the result screen still reads correctly on a narrow viewport with two stacked cobalt buttons in separate blocks plus the restart control, and that the Dutch label `Help ons deze test te verbeteren` does not wrap awkwardly inside the button
+- [ ] 8.2 Commit and push to `main`
+  - Committed 2026-09-11; not yet pushed.
+- [ ] 8.3 Before publishing, record the current `pbl_survey_click` ÷ `pbl_result` ratio in GA4 as a baseline, so the button's effect is measurable afterwards. If `pbl_survey_click` is already healthy relative to `pbl_cta_click`, the problem is motivation rather than visibility and this change will not move it — see the open question in `design.md`

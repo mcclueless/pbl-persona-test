@@ -2,31 +2,42 @@
 
 ### Requirement: The result screen offers a route to the feedback survey
 
-The result screen SHALL present a link to an external feedback survey, placed within the existing call-to-action block, below the "Explore PBL at UM" button. The link SHALL open in a new browsing context so the result screen remains available behind it.
+The result screen SHALL present a link to an external feedback survey in a block of its own, placed below the "Explore PBL at UM" call-to-action block and above the "Retake the test" control. The link SHALL open in a new browsing context so the result screen remains available behind it.
 
-The link SHALL be rendered as a tertiary text link — the same quiet treatment as the existing "Retake the test" control — and SHALL NOT be rendered as a filled cobalt button, so that it does not compete with the primary call-to-action.
+The link SHALL be rendered as a filled cobalt button, carrying the standard button treatment defined by the `visual-branding` capability: a cobalt blue `#355BD0` background, white text, and `20px` corners.
+
+The survey button SHALL NOT share a block with the recruitment call-to-action. Each block SHALL contain exactly one filled button, so that the recruitment call-to-action and the feedback request read as two distinct asks rather than two competing buttons inside one frame. The recruitment call-to-action SHALL appear first, retaining its primacy through order rather than through a difference in visual weight.
 
 #### Scenario: A student reaches the result screen
 
 - **WHEN** the result screen is displayed
-- **THEN** a feedback survey link is visible inside the call-to-action block, below the "Explore PBL at UM" button
+- **THEN** a feedback survey button is visible in its own block
+- **AND** that block sits below the "Explore PBL at UM" call-to-action block and above the "Retake the test" control
 
-#### Scenario: The feedback link is visually subordinate
+#### Scenario: The feedback button is a cobalt button
 
-- **WHEN** the feedback survey link is displayed alongside the "Explore PBL at UM" call-to-action
-- **THEN** the feedback link has no filled background and no border
-- **AND** the "Explore PBL at UM" call-to-action remains the only filled cobalt button in the block
+- **WHEN** the feedback survey button is displayed
+- **THEN** its background is cobalt blue `#355BD0`
+- **AND** its text is white `#FFFFFF`
+- **AND** its corner radius is `20px`
+
+#### Scenario: The two asks do not share a frame
+
+- **WHEN** the result screen is displayed
+- **THEN** the feedback survey button sits outside the recruitment call-to-action block
+- **AND** the recruitment call-to-action block contains exactly one filled button
+- **AND** the feedback survey block contains exactly one filled button
 
 #### Scenario: The student follows the feedback link
 
-- **WHEN** the student clicks the feedback survey link
+- **WHEN** the student clicks the feedback survey button
 - **THEN** the survey opens in a new tab
 - **AND** the result screen remains intact in the original tab
 
 #### Scenario: The link is not offered before the test is finished
 
 - **WHEN** the start screen or a question is displayed
-- **THEN** no feedback survey link is shown
+- **THEN** no feedback survey button is shown
 
 ### Requirement: Each language links to its own survey
 

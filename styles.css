@@ -508,7 +508,7 @@ body {
   font-size: 22px; line-height: 1.1; color: var(--cobalt);
 }
 .cta p { font-size: 14px; color: var(--steel); margin-top: 10px; }
-.btn-download {
+.btn-download, .btn-survey {
   margin-top: 18px; width: 100%;
   border: none; cursor: pointer;
   font-family: var(--font-body); font-weight: 700; font-size: 16px;
@@ -518,19 +518,22 @@ body {
   transition: transform 0.25s var(--ease), box-shadow 0.25s;
   box-shadow: 0 14px 36px -14px rgba(53,91,208,0.5);
 }
-.btn-download:hover { transform: translateY(-2px); box-shadow: 0 20px 44px -14px rgba(53,91,208,0.65); }
+.btn-download:hover, .btn-survey:hover { transform: translateY(-2px); box-shadow: 0 20px 44px -14px rgba(53,91,208,0.65); }
 
-/* Quiet tertiary link — same treatment as .btn-restart. Used for the feedback
-   survey so it reads as subordinate to the cobalt CTA above it. */
-.btn-quiet {
-  margin-top: 16px;
-  color: var(--dove);
-  font-family: var(--font-body); font-size: 13.5px;
-  text-decoration: none;
-  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-  transition: color 0.2s;
+/* Feedback survey block. Deliberately a separate block from .cta rather than a
+   second button inside it: the .cta copy is UM recruitment copy, and a survey
+   button sitting under it would read as part of that offer. One filled button
+   per block; the recruitment CTA keeps primacy by coming first.
+   The side padding and the transparent border together reproduce .cta's box
+   exactly (24px padding + 1.5px border, under the global border-box), so the two
+   cobalt buttons render at identical widths. Without the padding the survey
+   button would be 48px wider than the CTA above it; without the transparent
+   border, 3px wider — enough for the stacked edges to look misaligned. */
+.survey-cta {
+  margin-top: 4px;
+  padding: 0 24px;
+  border: 1.5px solid transparent;
 }
-.btn-quiet:hover { color: var(--steel); }
 
 .btn-restart {
   margin: 20px auto 4px;

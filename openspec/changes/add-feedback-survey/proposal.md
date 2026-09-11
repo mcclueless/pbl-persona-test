@@ -4,7 +4,7 @@ Students finish the PBL Persona Test and have no way to tell us what they though
 
 ## What Changes
 
-- Add a feedback link at the end of the test, on the result screen, inside the existing CTA block below the "Explore PBL at UM" button. It is a quiet text link in dove grey — not a second cobalt button — so it does not compete with the recruitment CTA for attention.
+- Add a feedback button at the end of the test, on the result screen, in its own block below the "Explore PBL at UM" CTA block and above "Retake the test". It carries the standard cobalt treatment — `#355BD0`, white text, 20px corners. Keeping it out of the CTA block leaves exactly one filled button per block, so the recruitment CTA holds first position without the two competing inside a single frame.
 - Point the link at the language-matched Qualtrics survey:
   - EN: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_0r2st1QZQMgRxSS`
   - NL: `https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_em1huq9t56bJHrE`
@@ -28,8 +28,8 @@ Non-goals: this change does **not** author or edit the Qualtrics surveys themsel
 
 ## Impact
 
-- **Code**: `index.html` (one anchor added inside the existing `.cta` block), `app.js` (build the survey `href` in `renderResult()`, plus a click listener emitting `pbl_survey_click`), `data.js` (two new strings per language), `styles.css` (one quiet-link rule, reusing the existing `.btn-restart` treatment). No build step, no new runtime dependency.
+- **Code**: `index.html` (one anchor inside a new block placed after the existing `.cta` block), `app.js` (build the survey `href` in `renderResult()`, plus a click listener emitting `pbl_survey_click`), `data.js` (two new strings per language), `styles.css` (a rule for the new block plus a cobalt button rule reusing the existing `.btn-download` treatment). No build step, no new runtime dependency.
 - **External config, not code**: each Qualtrics survey needs an Embedded Data element declaring `persona`, `lang`, and `source` in its Survey Flow. Without it Qualtrics silently discards the URL parameters — the links keep working and the context is simply lost, which is not visible until the results are exported.
 - **Downstream**: adds one more Data Layer Variable, Custom Event trigger, and GA4 Event tag to the GTM console work already outstanding in `add-gtm-analytics`. That change is code-complete with only console configuration left, so folding `pbl_survey_click` into the same pass avoids a second trip through the GTM console.
-- **Visual spec**: `openspec/specs/visual-branding/spec.md` requires calls-to-action to be cobalt buttons. The feedback link is deliberately not a CTA in that sense — it is a tertiary text link, the same treatment as the existing "Retake the test" control, which the spec is already silent about. No `visual-branding` delta is proposed; the gap is pre-existing and closing it is a separate concern.
+- **Visual spec**: the survey button uses the cobalt `#355BD0` / white text / 20px treatment that `openspec/specs/visual-branding/spec.md` already mandates for buttons and calls-to-action, so no `visual-branding` delta is needed. (An earlier revision of this proposal reached the same conclusion by the opposite route — that a quiet text link fell outside that spec entirely. That reasoning no longer applies; the conclusion is unchanged.)
 - **Privacy**: the parameters carry a quiz result and a language, not identity. No personal data leaves the app.

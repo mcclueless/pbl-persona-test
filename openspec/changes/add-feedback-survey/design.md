@@ -7,14 +7,14 @@ The result screen already carries one outbound link: the "Explore PBL at UM" CTA
 Two Qualtrics surveys already exist, one per language. They are external artefacts — this change links to them, it does not author them.
 
 Constraints worth naming:
-- `openspec/specs/visual-branding/spec.md` requires all buttons and calls-to-action to be cobalt `#355BD0` with white text and a 20px radius. A second cobalt button on the result screen would be spec-compliant and still wrong: it would split attention between the recruitment CTA (UM's goal) and the feedback survey (ours).
+- `openspec/specs/visual-branding/spec.md` requires all buttons and calls-to-action to be cobalt `#355BD0` with white text and a 20px radius. The feedback button follows that treatment. Two cobalt buttons split attention when they share a frame, so the two asks are kept in separate blocks — see *Cobalt button in its own block* below.
 - The EN/NL toggle stays live on the result screen, so anything language-dependent must survive a mid-screen switch.
 - `add-gtm-analytics` is code-complete with only GTM console configuration outstanding. Any new event should be defined now so it rides along with that console pass.
 
 ## Goals / Non-Goals
 
 **Goals:**
-- Give finishers a visible but subordinate route into the feedback survey.
+- Give finishers a route into the feedback survey that is actually noticed, without displacing the recruitment CTA from first position.
 - Send each student to the survey in the language they are reading.
 - Carry the result into Qualtrics so feedback can be segmented by persona.
 - Make the outbound click measurable, in the same shape as the existing CTA click.
@@ -23,19 +23,25 @@ Constraints worth naming:
 - Authoring or restructuring the Qualtrics surveys.
 - A feedback route for students who abandon the test mid-way.
 - Any in-app display or storage of survey responses.
-- Closing the `visual-branding` spec's silence on tertiary text links.
+- Amending `visual-branding` — the survey button uses the cobalt treatment that spec already defines.
 
 ## Decisions
 
-### Quiet text link inside the CTA block, not a second button
+### Cobalt button in its own block, below the CTA block
 
-The link is placed inside the existing `.cta` block, below the cobalt button, styled with the `.btn-restart` treatment already in the stylesheet: dove text, no fill, no border.
+The survey link is a filled cobalt button — `#355BD0`, white text, 20px corners — in a block of its own, placed below the `.cta` recruitment block and above "Retake the test". Each block holds exactly one filled button.
 
-*Why:* it adds no new visual surface to a screen that already has persona cards, a detail panel, a CTA block, and a footer, and it leaves exactly one filled cobalt button in view. The recruitment CTA keeps its prominence.
+*Why:* the link has to be seen to be used, and a filled button is the treatment this app already uses for "do this thing". Giving it a separate block rather than a second slot inside `.cta` keeps the two asks from competing inside one frame, and lets the recruitment CTA keep primacy through order — it comes first — rather than through a difference in visual weight.
 
-*Alternatives considered:* a second soft-blue block with its own cobalt button — highest response rate, but two primary CTAs competing, which is the trade-off we explicitly did not want. Placing it in the footer next to "Retake the test" — cheapest visually, but low enough to be missed by most students, which defeats the point of adding it.
+*Why not a second button inside the `.cta` block:* that block's heading and body copy are recruitment copy, framing the "Explore PBL at UM" button. A survey button underneath them inherits that framing and reads as part of UM's offer rather than a separate request from us. Two identical cobalt buttons in one frame also leave order as the sole hierarchy signal, with no surrounding structure to reinforce it.
 
-*Spec note:* the `visual-branding` requirement governs buttons and calls-to-action. This link is deliberately neither; it is a tertiary control, the same class of thing as "Retake the test", which that spec already does not describe. The gap is pre-existing and this change does not widen it, so no `visual-branding` delta is proposed.
+*Why not steel `#000831`:* considered, as a way to distinguish the two buttons by hue rather than by position. Rejected on two grounds. Steel is near-black — roughly 19:1 against white where cobalt is about 5.7:1 — so a steel button outweighs the cobalt CTA and takes primacy whether or not that is intended. And `visual-branding` already spends steel on the top-persona card, directly above this block, where it means "this is your best match"; reusing it for the survey button would blur a signal the student met seconds earlier.
+
+*Spec note:* a cobalt/white/20px button is exactly what `visual-branding` mandates for buttons, so this treatment needs no `visual-branding` delta. The `feedback-survey` delta carries the placement and the one-filled-button-per-block rule.
+
+*Superseded decision (2026-09-11):* this shipped first as a quiet dove-grey text link inside the `.cta` block, reusing the `.btn-restart` treatment — deliberately subordinate, so as not to dilute the recruitment CTA. Reversed because the link went unseen in practice. The mechanism is legible in the stylesheet: at 13.5px in dove `#4a5570`, set `margin-top: 16px` beneath a cobalt button whose `box-shadow: 0 14px 36px -14px` falls roughly 18px, the link begins inside that shadow. This is precisely the escalation the Risks section anticipated, and the escape hatch held — the survey URLs, the query parameters, and the `pbl_survey_click` event are all unchanged.
+
+*Open question:* the trigger for this reversal is the observation that the link is unseen, not `pbl_survey_click` data. Comparing `pbl_result` against `pbl_survey_click` and `pbl_cta_click` would separate a visibility problem from a motivation problem — worth checking before or shortly after this ships, since only the first is fixed by a button.
 
 ### Base URL in `data.js`, full `href` assembled in `renderResult()`
 
@@ -70,6 +76,7 @@ This is console work in a system this repo does not control, so it belongs in `t
 - **Embedded Data not configured in Qualtrics** → the links still work, the parameters vanish, and nobody notices until the first export. Mitigation: an explicit non-code task per survey, plus a verification step that submits a test response through a parameterised link and confirms the three fields land in the response.
 - **The two survey IDs could be swapped** → Dutch students land in the English survey and vice versa; a silent, embarrassing failure. The IDs and their language labels reached this change in separate messages, so the mapping is asserted, not verified. Mitigation: a verification task that opens both URLs and confirms the language of each before launch.
 - **`pbl_survey_click` not configured in GTM** → the link works and the click is invisible in GA4. Mitigation: append the variable/trigger/tag rows to `add-gtm-analytics/gtm-setup.md` so it is picked up in the console pass that is already outstanding, rather than needing a second one.
-- **A quiet link means fewer responses** → accepted deliberately, in exchange for not diluting the recruitment CTA. If the response volume proves too low, the placement can be escalated to its own block later without changing the URL, parameter, or event design.
+- **A quiet link means fewer responses** → this risk fired. Accepted at first in exchange for not diluting the recruitment CTA, then reversed on 2026-09-11 once the link proved effectively invisible. The escape hatch worked as written: the placement and treatment changed, the URL, parameters, and event design did not.
 - **Only finishers can give feedback** → the students most worth hearing from may be the ones who quit at question 3. Accepted for this change; an abandonment route would need its own trigger and is out of scope.
-- **Third outbound link on one screen** → mitigated by the visual hierarchy: one filled button, two quiet text links.
+- **Third outbound link on one screen** → the screen now carries two filled cobalt buttons plus the quiet "Retake the test" control. Mitigated by separation and order: one filled button per block, recruitment first, each with its own framing copy.
+- **Two cobalt buttons could still read as competing** → the residual cost of making the survey visible, accepted knowingly. Separate blocks and fixed order are the mitigation; if the recruitment CTA measurably suffers, `pbl_cta_click` against `pbl_result` will show it, and the survey block can be moved below "Retake the test" without touching the URL or event design.
