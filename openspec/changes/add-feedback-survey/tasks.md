@@ -45,6 +45,7 @@
 - [ ] 6.2 In the **English** survey → Survey Flow, add an Embedded Data element at the very top with fields `persona`, `lang`, and `source`, each left as "Value will be set from Panel or URL"; save and publish
 - [ ] 6.3 Repeat 6.2 in the **Dutch** survey — Qualtrics discards the parameters entirely if this is missing, with no visible error
 - [ ] 6.4 Submit one test response through a parameterised link in each survey and confirm all three fields appear in the recorded response
+  - 6.2-6.4 are delegated to the Qualtrics survey owner, who was sent these instructions and reminded to action them on 2026-09-11. Until they are done, Qualtrics discards `persona`, `lang`, and `source` on every response.
 
 ## 7. GTM console (NOT code — external system)
 
@@ -61,6 +62,5 @@
 ## 8. Wrap-up
 
 - [ ] 8.1 Confirm the result screen still reads correctly on a narrow viewport with two stacked cobalt buttons in separate blocks plus the restart control, and that the Dutch label `Help ons deze test te verbeteren` does not wrap awkwardly inside the button
-- [ ] 8.2 Commit and push to `main`
-  - Committed 2026-09-11; not yet pushed.
-- [ ] 8.3 Before publishing, record the current `pbl_survey_click` ÷ `pbl_result` ratio in GA4 as a baseline, so the button's effect is measurable afterwards. If `pbl_survey_click` is already healthy relative to `pbl_cta_click`, the problem is motivation rather than visibility and this change will not move it — see the open question in `design.md`
+- [x] 8.2 Commit and push to `main`
+  - Committed and pushed 2026-09-11 (`585bc8b`).

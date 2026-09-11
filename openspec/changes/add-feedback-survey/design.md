@@ -41,7 +41,7 @@ The survey link is a filled cobalt button — `#355BD0`, white text, 20px corner
 
 *Superseded decision (2026-09-11):* this shipped first as a quiet dove-grey text link inside the `.cta` block, reusing the `.btn-restart` treatment — deliberately subordinate, so as not to dilute the recruitment CTA. Reversed because the link went unseen in practice. The mechanism is legible in the stylesheet: at 13.5px in dove `#4a5570`, set `margin-top: 16px` beneath a cobalt button whose `box-shadow: 0 14px 36px -14px` falls roughly 18px, the link begins inside that shadow. This is precisely the escalation the Risks section anticipated, and the escape hatch held — the survey URLs, the query parameters, and the `pbl_survey_click` event are all unchanged.
 
-*Open question:* the trigger for this reversal is the observation that the link is unseen, not `pbl_survey_click` data. Comparing `pbl_result` against `pbl_survey_click` and `pbl_cta_click` would separate a visibility problem from a motivation problem — worth checking before or shortly after this ships, since only the first is fixed by a button.
+*Basis for the reversal:* the owner's direct observation that the link goes unseen, corroborated by the stylesheet geometry above. A GA4 baseline separating a visibility problem from a motivation problem was considered and deliberately set aside by the owner on 2026-09-11 — the shadow overlap is a sufficient explanation on its own, and the change is cheap enough not to need one. `pbl_survey_click` keeps firing either way, so the effect stays observable after the fact.
 
 ### Base URL in `data.js`, full `href` assembled in `renderResult()`
 
