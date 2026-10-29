@@ -379,7 +379,6 @@ body {
   font-size: clamp(30px, 8.5vw, 40px); line-height: 1.02;
   letter-spacing: -0.03em; margin-top: 10px; color: var(--steel);
 }
-.result-head h1 .accent { color: var(--cobalt); display:block; }
 
 /* Stones (clickable persona clouds) */
 .stones-grid { display: flex; flex-direction: column; gap: 13px; margin-top: 26px; }
@@ -428,8 +427,6 @@ body {
   letter-spacing: 0.01em;
   padding: 4px 10px; border-radius: 999px;
 }
-
-.tap-hint { text-align: center; font-size: 12.5px; color: var(--dove); margin-top: 16px; }
 
 /* Detail panel */
 .detail { display: none; }

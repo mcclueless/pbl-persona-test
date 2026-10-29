@@ -267,9 +267,7 @@
   function renderResult() {
     const T = t();
     $('#result-kicker').textContent = T.resultKicker;
-    $('#result-title1').textContent = T.resultTitle1;
-    $('#result-title2').textContent = T.resultTitle2;
-    $('#tap-hint').textContent = T.tapHint;
+    $('#result-title').textContent = T.resultTitle;
     $('#cta-title').textContent = T.ctaTitle;
     $('#cta-text').textContent = T.ctaText;
     $('#cta-btn-label').textContent = T.ctaBtn;
